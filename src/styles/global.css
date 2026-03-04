@@ -1,0 +1,100 @@
+@import "tailwindcss";
+@config "../../tailwind.config.js";
+
+
+:root {
+  --bg-root: #0a0c10;
+  --bg-surface: #0f1117;
+  --bg-elevated: #161a23;
+  --bg-card: #1a1e28;
+  --augur-blue: #6383ff;
+  /* Severity system */
+  --severity-critical: #ff4757;
+  --severity-critical-bg: rgba(255, 71, 87, 0.12);
+  --severity-critical-border: rgba(255, 71, 87, 0.3);
+  --severity-high: #ff8c42;
+  --severity-high-bg: rgba(255, 140, 66, 0.12);
+  --severity-high-border: rgba(255, 140, 66, 0.3);
+  --severity-medium: #ffc542;
+  --severity-medium-bg: rgba(255, 197, 66, 0.12);
+  --severity-medium-border: rgba(255, 197, 66, 0.3);
+  --severity-low: #48c774;
+  --severity-low-bg: rgba(72, 199, 116, 0.12);
+  --severity-low-border: rgba(72, 199, 116, 0.3);
+
+  /* Tag colors */
+  --tag-red: rgba(255, 71, 87, 0.15);
+  --tag-red-text: #ff6b7a;
+  --tag-red-border: rgba(255, 71, 87, 0.3);
+  --tag-blue: rgba(99, 131, 255, 0.15);
+  --tag-blue-text: #8ba3ff;
+  --tag-blue-border: rgba(99, 131, 255, 0.3);
+  --tag-purple: rgba(168, 130, 255, 0.15);
+  --tag-purple-text: #b89eff;
+  --tag-purple-border: rgba(168, 130, 255, 0.3);
+  --tag-teal: rgba(61, 217, 196, 0.15);
+  --tag-teal-text: #5ee8d2;
+  --tag-teal-border: rgba(61, 217, 196, 0.3);
+  --tag-gray: rgba(139, 144, 160, 0.12);
+  --tag-gray-text: #8b90a0;
+  --tag-gray-border: rgba(139, 144, 160, 0.2);
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-pill: 999px;
+
+  --font-sans: 'DM Sans', 'Inter', -apple-system, sans-serif;
+
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+}
+
+body {
+  @apply bg-bg-root text-text-primary font-sans antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { @apply bg-border-default rounded-full; }
+::-webkit-scrollbar-thumb:hover { @apply bg-border-hover; }
+
+.glass {
+  @apply bg-bg-surface/80 backdrop-blur-md border border-border-subtle rounded-xl;
+}
+
+/* Detail Panel Styles */
+.detail-section {
+  @apply mb-6;
+}
+
+.detail-section-label {
+  @apply text-[10px] font-semibold uppercase tracking-wider text-text-tertiary mb-2;
+}
+
+.detail-value {
+  @apply font-mono text-[13px] text-augur-blue break-all;
+}
+
+
+.detail-row {
+  @apply flex justify-between items-center py-2 border-b border-border-subtle last:border-b-0;
+}
+
+.detail-row-label {
+  @apply text-[12px] text-text-secondary;
+}
+
+.detail-row-value {
+  @apply text-[12px] font-semibold text-text-primary;
+}
+
+.confidence-bar {
+  @apply w-[120px] h-1.5 bg-bg-elevated rounded-full overflow-hidden;
+}
+
+.confidence-bar-fill {
+  @apply h-full transition-all duration-300;
+}
+
