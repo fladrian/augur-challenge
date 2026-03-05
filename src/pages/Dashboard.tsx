@@ -1,12 +1,14 @@
 import * as React from 'react';
-import { Sidebar } from '../components/Sidebar';
-import { PageHeader } from '../components/PageHeader';
-import { StatCard } from '../components/ui/StatCard';
-import { FilterToolbar } from '../components/FilterToolbar';
-import { IndicatorTable } from '../components/IndicatorTable';
-import { Pagination } from '../components/Pagination';
-import { DetailPanel } from '../components/DetailPanel';
-import { useIndicators, useIndicatorStats } from '../hooks/useIndicators';
+import { 
+  Sidebar, 
+  PageHeader, 
+  StatCard, 
+  FilterToolbar, 
+  IndicatorTable, 
+  Pagination, 
+  DetailPanel 
+} from '../components';
+import { useIndicators, useIndicatorStats } from '../hooks';
 import { Shield } from 'lucide-react';
 
 const DashboardPage = () => {
