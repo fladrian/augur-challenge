@@ -5,6 +5,12 @@ import {
   flexRender,
   createColumnHelper,
 } from '@tanstack/react-table';
+import { 
+  Globe, 
+  AtSign, 
+  Hash, 
+  Link as LinkIcon 
+} from 'lucide-react';
 import { Indicator, Severity } from '../types/indicator';
 import { Badge, Tag } from './ui';
 import { useDashboardStore } from '../store/useDashboardStore';
@@ -14,6 +20,13 @@ interface IndicatorTableProps {
   data: Indicator[];
   isLoading?: boolean;
 }
+
+const typeIconMap = {
+  ip: Globe,
+  domain: AtSign,
+  hash: Hash,
+  url: LinkIcon,
+};
 
 const columnHelper = createColumnHelper<Indicator>();
 
@@ -56,11 +69,18 @@ export const IndicatorTable = ({ data, isLoading }: IndicatorTableProps) => {
     }),
     columnHelper.accessor('type', {
       header: 'Type',
-      cell: (info) => (
-        <span className="text-[12px] text-text-secondary capitalize">
-          {info.getValue()}
-        </span>
-      ),
+      cell: (info) => {
+        const type = info.getValue();
+        const Icon = typeIconMap[type] || Globe;
+        return (
+          <div className="flex items-center gap-2">
+            <Icon className="w-3.5 h-3.5 text-text-tertiary opacity-70" />
+            <span className="text-[12px] text-text-secondary capitalize">
+              {type}
+            </span>
+          </div>
+        );
+      },
     }),
     columnHelper.accessor('severity', {
       header: 'Severity',
@@ -96,6 +116,14 @@ export const IndicatorTable = ({ data, isLoading }: IndicatorTableProps) => {
           </div>
         );
       },
+    }),
+    columnHelper.accessor('source', {
+      header: 'Source',
+      cell: (info) => (
+        <span className="text-[12px] text-text-secondary">
+          {info.getValue()}
+        </span>
+      ),
     }),
     columnHelper.accessor('tags', {
       header: 'Tags',

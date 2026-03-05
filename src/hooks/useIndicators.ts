@@ -3,12 +3,13 @@ import { getIndicators, getStats, getIndicatorById } from '../api/indicators';
 import { useDashboardStore } from '../store/useDashboardStore';
 
 export const useIndicators = () => {
-  const { search, severity, type, page, limit } = useDashboardStore();
+  const { search, severity, type, source, page, limit } = useDashboardStore();
 
   const filters = {
     search: search || undefined,
     severity: severity === 'all' ? undefined : severity,
     type: type === 'all' ? undefined : type,
+    source: source === 'all' ? undefined : source,
     page,
     limit,
   };

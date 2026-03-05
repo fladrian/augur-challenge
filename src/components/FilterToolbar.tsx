@@ -5,7 +5,17 @@ import { Severity, IndicatorType } from '../types/indicator';
 import { useDebounce } from '@uidotdev/usehooks';
 
 export const FilterToolbar = () => {
-  const { search, setSearch, severity, setSeverity, type, setType, resetFilters } = useDashboardStore();
+  const { 
+    search, 
+    setSearch, 
+    severity, 
+    setSeverity, 
+    type, 
+    setType, 
+    source,
+    setSource,
+    resetFilters 
+  } = useDashboardStore();
   const [localSearch, setLocalSearch] = React.useState(search);
   const debouncedSearch = useDebounce(localSearch, 300);
 
@@ -19,6 +29,16 @@ export const FilterToolbar = () => {
       setLocalSearch(search);
     }
   }, [search]);
+
+  const sources = [
+    'AbuseIPDB',
+    'VirusTotal',
+    'Silent Push',
+    'MalwareBazaar',
+    'PhishTank',
+    'GreyNoise',
+    'URLHaus'
+  ];
 
   return (
     <div className="px-8 py-4 flex items-center gap-3 bg-bg-surface border-b border-border-subtle flex-wrap">
@@ -59,6 +79,17 @@ export const FilterToolbar = () => {
           <option value="domain">Domain</option>
           <option value="hash">File Hash</option>
           <option value="url">URL</option>
+        </select>
+
+        <select
+          value={source}
+          onChange={(e) => setSource(e.target.value)}
+          className="appearance-none bg-bg-input border border-border-default rounded-md text-[12.5px] text-text-primary px-3 py-[7px] pr-8 outline-none cursor-pointer focus:border-augur-blue focus:ring-2 focus:ring-augur-blue/15 bg-[url('data:image/svg+xml,%3Csvg_xmlns=%22http://www.w3.org/2000/svg%22_width=%2212%22_height=%2212%22_fill=%22%235c6170%22_viewBox=%220_0_24_24%22%3E%3Cpath_d=%22M7_10l5_5_5-5z%22/%3E%3C/svg%3E')] bg-no-repeat bg-[right_10px_center]"
+        >
+          <option value="all">All Sources</option>
+          {sources.map(s => (
+            <option key={s} value={s}>{s}</option>
+          ))}
         </select>
       </div>
 

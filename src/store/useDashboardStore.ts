@@ -6,6 +6,7 @@ interface DashboardState {
   search: string;
   severity: Severity | 'all';
   type: IndicatorType | 'all';
+  source: string | 'all';
   page: number;
   limit: number;
 
@@ -13,6 +14,7 @@ interface DashboardState {
   setSearch: (search: string) => void;
   setSeverity: (severity: Severity | 'all') => void;
   setType: (type: IndicatorType | 'all') => void;
+  setSource: (source: string | 'all') => void;
   setPage: (page: number) => void;
   setLimit: (limit: number) => void;
   resetFilters: () => void;
@@ -23,6 +25,7 @@ export const useDashboardStore = create<DashboardState>((set) => ({
   search: '',
   severity: 'all',
   type: 'all',
+  source: 'all',
   page: 1,
   limit: 20,
 
@@ -30,12 +33,14 @@ export const useDashboardStore = create<DashboardState>((set) => ({
   setSearch: (search) => set({ search, page: 1 }), // Reset to page 1 on search
   setSeverity: (severity) => set({ severity, page: 1 }),
   setType: (type) => set({ type, page: 1 }),
+  setSource: (source) => set({ source, page: 1 }),
   setPage: (page) => set({ page }),
   setLimit: (limit) => set({ limit, page: 1 }),
   resetFilters: () => set({
     search: '',
     severity: 'all',
     type: 'all',
+    source: 'all',
     page: 1,
     selectedIndicatorId: null
   }),

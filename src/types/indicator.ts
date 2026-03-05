@@ -32,6 +32,7 @@ export interface IndicatorFilters {
   search?: string;
   severity?: Severity;
   type?: IndicatorType;
+  source?: string;
   page?: number;
   limit?: number;
 }
