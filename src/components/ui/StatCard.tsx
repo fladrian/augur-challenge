@@ -1,11 +1,7 @@
 import * as React from 'react';
-import { LucideIcon } from 'lucide-react';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { cn } from '../../utils/cn';
+
 
 interface StatCardProps {
   label: string;
@@ -37,21 +33,22 @@ export function StatCard({
   return (
     <div
       className={cn(
-        'bg-bg-card border border-border-subtle rounded-lg p-4 flex flex-col gap-1 transition-colors hover:border-border-hover',
+        'bg-bg-card border border-border-subtle rounded-lg p-5 flex flex-col items-center justify-center gap-2 transition-all duration-300 hover:border-border-active hover:shadow-xl hover:-translate-y-1',
         className
       )}
     >
-      <div className="flex items-center justify-between">
-        <span className="text-[10.5px] font-semibold uppercase tracking-[0.8px] text-text-tertiary">
+      <div className="flex items-center gap-2 mb-1">
+        <span className="text-[11px] font-semibold uppercase tracking-[1px] text-text-tertiary">
           {label}
         </span>
-        {Icon && <Icon className="w-4 h-4 text-text-tertiary" />}
+        {Icon && <Icon className="w-3.5 h-3.5 text-text-tertiary" />}
       </div>
-      <div className={cn('text-[26px] font-bold tracking-tight leading-none', colorStyles[variant])}>
+      <div className={cn('text-[38px] font-bold tracking-tight leading-none my-1', colorStyles[variant])}>
         {typeof value === 'number' ? value.toLocaleString() : value}
       </div>
-      {subValue && <div className="text-[11px] text-text-tertiary">{subValue}</div>}
+      {subValue && <div className="text-[12px] text-text-tertiary font-medium">{subValue}</div>}
     </div>
+
   );
 }
 

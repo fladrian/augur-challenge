@@ -1,5 +1,7 @@
 
 import { useDashboardStore } from '../store/useDashboardStore';
+import { cn } from '../utils/cn';
+
 
 interface PaginationProps {
   totalItems: number;
@@ -43,14 +45,16 @@ export const Pagination = ({ totalItems, totalPages }: PaginationProps) => {
         key={idx}
         disabled={p === '...'}
         onClick={() => typeof p === 'number' && setPage(p)}
-        className={`w-[30px] h-[30px] flex items-center justify-center border rounded-[4px] text-[12px] font-medium transition-all duration-150 ${
+        className={cn(
+          "w-[30px] h-[30px] flex items-center justify-center border rounded-[4px] text-[12px] font-medium transition-all duration-150",
           p === page
-            ? 'bg-augur-blue border-augur-blue text-white'
-            : p === '...'
-            ? 'border-transparent text-text-tertiary cursor-default'
-            : 'border-border-default text-text-secondary hover:bg-bg-card hover:border-border-hover'
-        }`}
+            ? "bg-augur-blue border-augur-blue text-white"
+            : p === "..."
+            ? "border-transparent text-text-tertiary cursor-default"
+            : "border-border-default text-text-secondary hover:bg-bg-card hover:border-border-hover"
+        )}
       >
+
         {p}
       </button>
     ));

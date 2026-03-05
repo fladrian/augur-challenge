@@ -1,11 +1,6 @@
-import * as React from 'react';
 import { Severity } from '../../types/indicator';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '../../utils/cn';
 
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
 
 interface BadgeProps {
   severity: Severity;
@@ -23,7 +18,8 @@ export const Badge = ({ severity, className }: BadgeProps) => {
   return (
     <span
       className={cn(
-        'inline-flex items-center px-2 py-0.5 rounded-[var(--radius-sm)] text-[11px] font-bold capitalize tracking-tight border',
+        'inline-flex items-center px-2 py-0.5 rounded-sm text-[11px] font-bold capitalize tracking-tight border',
+
         styles[severity],
         className
       )}

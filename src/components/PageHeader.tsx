@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { Button } from './ui/Button';
+import { Button } from './ui';
+
 
 export const PageHeader = () => {
   return (

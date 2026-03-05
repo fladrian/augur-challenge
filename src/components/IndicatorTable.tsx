@@ -6,15 +6,9 @@ import {
   createColumnHelper,
 } from '@tanstack/react-table';
 import { Indicator, Severity } from '../types/indicator';
-import { Badge } from './ui/Badge';
-import { Tag } from './ui/Tag';
+import { Badge, Tag } from './ui';
 import { useDashboardStore } from '../store/useDashboardStore';
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { cn } from '../utils/cn';
 
 interface IndicatorTableProps {
   data: Indicator[];

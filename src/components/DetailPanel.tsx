@@ -2,10 +2,7 @@ import { AlertCircle } from 'lucide-react';
 
 import { useDashboardStore } from '../store/useDashboardStore';
 import { useIndicatorDetails } from '../hooks/useIndicators';
-import { Badge } from './ui/Badge';
-import { Tag } from './ui/Tag';
-import { Button } from './ui/Button';
-import { Skeleton } from './ui/Skeleton';
+import { Badge, Tag, Button, Skeleton } from './ui';
 
 export const DetailPanel = () => {
   const { selectedIndicatorId, setSelectedIndicatorId } = useDashboardStore();

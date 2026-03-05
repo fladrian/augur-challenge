@@ -1,12 +1,5 @@
-import axios from 'axios';
+import api from './client';
 import { Indicator, IndicatorFilters, PaginatedResponse } from '../types/indicator';
-
-const api = axios.create({
-  baseURL: '/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-});
 
 export const getIndicators = async (filters: IndicatorFilters = {}) => {
   const { data } = await api.get<PaginatedResponse<Indicator>>('/indicators', {

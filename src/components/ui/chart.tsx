@@ -3,12 +3,7 @@
 import * as React from "react"
 import * as RechartsPrimitive from "recharts"
 
-import { clsx, type ClassValue } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
+import { cn } from '../../utils/cn';
 
 // Format: { [key: string]: { label: string; color?: string; icon?: React.ElementType } }
 export type ChartConfig = {
