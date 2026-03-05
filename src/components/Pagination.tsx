@@ -1,6 +1,5 @@
-import * as React from 'react';
-
-import { useDashboardStore } from '../store/useDashboardStore';
+import { useDashboardStore } from '@/store/useDashboardStore';
+import { cn } from '@/utils/cn';
 
 interface PaginationProps {
   totalItems: number;
@@ -23,38 +22,21 @@ export const Pagination = ({ totalItems, totalPages }: PaginationProps) => {
      );
   }
 
-  const renderPageButtons = () => {
-    const pages: (number | string)[] = [];
-    const maxVisible = 5;
-
-    if (totalPages <= maxVisible) {
-      for (let i = 1; i <= totalPages; i++) pages.push(i);
-    } else {
-      if (page <= 3) {
-        pages.push(1, 2, 3, '...', totalPages);
-      } else if (page >= totalPages - 2) {
-        pages.push(1, '...', totalPages - 2, totalPages - 1, totalPages);
-      } else {
-        pages.push(1, '...', page, '...', totalPages);
-      }
-    }
-
-    return pages.map((p, idx) => (
-      <button
-        key={idx}
-        disabled={p === '...'}
-        onClick={() => typeof p === 'number' && setPage(p)}
-        className={`w-[30px] h-[30px] flex items-center justify-center border rounded-[4px] text-[12px] font-medium transition-all duration-150 ${
-          p === page
-            ? 'bg-augur-blue border-augur-blue text-white'
-            : p === '...'
-            ? 'border-transparent text-text-tertiary cursor-default'
-            : 'border-border-default text-text-secondary hover:bg-bg-card hover:border-border-hover'
-        }`}
-      >
-        {p}
-      </button>
-    ));
+  const getPages = () => {
+    return Array.from(new Set([
+      1,
+      Math.max(2, page - 1),
+      page,
+      Math.min(totalPages - 1, page + 1),
+      totalPages
+    ]))
+      .sort((pageA, pageB) => pageA - pageB)
+      .reduce((paginationItems, pageNum, index, pagesArray) => {
+        const prevPageNum = pagesArray[index - 1];
+        if (index > 0 && prevPageNum !== undefined && pageNum - prevPageNum > 1) paginationItems.push('...');
+        paginationItems.push(pageNum);
+        return paginationItems;
+      }, [] as Array<number | string>);
   };
 
   return (
@@ -70,7 +52,21 @@ export const Pagination = ({ totalItems, totalPages }: PaginationProps) => {
         >
           ‹
         </button>
-        {renderPageButtons()}
+        {getPages().map((pageItem, index) => (
+          <button
+            key={index}
+            disabled={pageItem === '...'}
+            onClick={() => typeof pageItem === 'number' && setPage(pageItem)}
+            className={cn(
+              "w-[30px] h-[30px] flex items-center justify-center border rounded-[4px] text-[12px] font-medium transition-all duration-150",
+              pageItem === page && "bg-augur-blue border-augur-blue text-white",
+              pageItem === '...' && "border-transparent text-text-tertiary cursor-default",
+              pageItem !== page && pageItem !== '...' && "border-border-default text-text-secondary hover:bg-bg-card hover:border-border-hover"
+            )}
+          >
+            {pageItem}
+          </button>
+        ))}
         <button
           disabled={page === totalPages}
           onClick={() => setPage(page + 1)}

@@ -1,6 +1,6 @@
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
-import { getIndicators, getStats, getIndicatorById } from '../api/indicators';
-import { useDashboardStore } from '../store/useDashboardStore';
+import { getIndicators, getStats, getIndicatorById } from '@/api/indicators';
+import { useDashboardStore } from '@/store/useDashboardStore';
 
 export const useIndicators = () => {
   const { search, severity, type, source, page, limit } = useDashboardStore();

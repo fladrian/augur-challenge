@@ -9,6 +9,14 @@ export type IndicatorType = 'ip' | 'domain' | 'hash' | 'url';
 
 export type Severity = 'critical' | 'high' | 'medium' | 'low';
 
+export interface FilterOption<T> {
+  value: T | 'all';
+  label: string;
+}
+
+export type SeverityOption = FilterOption<Severity>;
+export type IndicatorTypeOption = FilterOption<IndicatorType>;
+
 export interface Indicator {
   id: string;
   value: string;

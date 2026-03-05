@@ -10,7 +10,7 @@ import {
   BarChart3,
   Settings,
 } from 'lucide-react';
-import { cn } from '../utils/cn';
+import { cn } from '@/utils/cn';
 
 interface NavItemProps {
   icon: any;

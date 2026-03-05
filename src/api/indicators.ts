@@ -1,5 +1,5 @@
 import api from './client';
-import { Indicator, IndicatorFilters, PaginatedResponse } from '../types/indicator';
+import { Indicator, IndicatorFilters, PaginatedResponse } from '@/types/indicator';
 
 export const getIndicators = async (filters: IndicatorFilters = {}) => {
   const { data } = await api.get<PaginatedResponse<Indicator>>('/indicators', {

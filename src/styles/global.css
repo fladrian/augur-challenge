@@ -55,6 +55,10 @@ body {
   @apply bg-bg-root text-text-primary font-sans antialiased;
 }
 
+button {
+  @apply cursor-pointer;
+}
+
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { @apply bg-border-default rounded-full; }

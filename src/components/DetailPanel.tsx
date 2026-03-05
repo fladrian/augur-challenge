@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { AlertCircle } from 'lucide-react';
 
-import { useDashboardStore } from '../store/useDashboardStore';
-import { useIndicatorDetails } from '../hooks';
+import { useDashboardStore } from '@/store/useDashboardStore';
+import { useIndicatorDetails } from '@/hooks';
 import { Badge, Tag, Button, Skeleton } from './ui';
 
 export const DetailPanel = () => {

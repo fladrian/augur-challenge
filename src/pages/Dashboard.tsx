@@ -2,13 +2,13 @@ import * as React from 'react';
 import { 
   Sidebar, 
   PageHeader, 
-  StatCard, 
+  StatCardsGroup, 
   FilterToolbar, 
   IndicatorTable, 
   Pagination, 
   DetailPanel 
-} from '../components';
-import { useIndicators, useIndicatorStats } from '../hooks';
+} from '@/components';
+import { useIndicators, useIndicatorStats } from '@/hooks';
 import { Shield } from 'lucide-react';
 
 const DashboardPage = () => {
@@ -24,45 +24,13 @@ const DashboardPage = () => {
         <div className="flex-1 overflow-auto custom-scrollbar">
 
 
-        <div className="grid grid-cols-5 gap-3 px-8 py-5">
-          <StatCard
-            label="Total Indicators"
-            value={stats?.total || 0}
-            subValue="↑ 12% from last week"
-            icon={Shield}
-            variant="total"
-          />
-          <StatCard
-            label="Critical"
-            value={stats?.critical || 0}
-            subValue="Requires immediate action"
-            variant="critical"
-          />
-          <StatCard
-            label="High"
-            value={stats?.high || 0}
-            subValue="Active monitoring"
-            variant="high"
-          />
-          <StatCard
-            label="Medium"
-            value={stats?.medium || 0}
-            subValue="Under review"
-            variant="medium"
-          />
-          <StatCard
-            label="Low"
-            value={stats?.low || 0}
-            subValue="Informational"
-            variant="low"
-          />
-        </div>
+        <StatCardsGroup stats={stats} />
 
         <FilterToolbar />
 
         <div className="flex-1 flex flex-col px-8 py-4">
           <IndicatorTable 
-            data={indicatorsRes?.data || []} 
+            data={indicatorsRes?.data ?? []} 
             isLoading={tableLoading} 
           />
           <Pagination 

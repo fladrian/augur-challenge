@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Severity, IndicatorType, IndicatorFilters } from '../types/indicator';
+import { Severity, IndicatorType, IndicatorFilters } from '@/types/indicator';
 
 interface DashboardState {
   selectedIndicatorId: string | null;
