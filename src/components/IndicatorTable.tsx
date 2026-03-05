@@ -2,14 +2,19 @@ import * as React from 'react';
 import {
   useReactTable,
   getCoreRowModel,
+  getSortedRowModel,
   flexRender,
   createColumnHelper,
+  SortingState,
 } from '@tanstack/react-table';
 import { 
   Globe, 
   AtSign, 
   Hash, 
-  Link as LinkIcon 
+  Link as LinkIcon,
+  ChevronUp,
+  ChevronDown,
+  ChevronsUpDown
 } from 'lucide-react';
 import { Indicator, Severity } from '../types/indicator';
 import { Badge, Tag } from './ui';
@@ -33,6 +38,7 @@ const columnHelper = createColumnHelper<Indicator>();
 export const IndicatorTable = ({ data, isLoading }: IndicatorTableProps) => {
   const { setSelectedIndicatorId, selectedIndicatorId } = useDashboardStore();
   const [rowSelection, setRowSelection] = React.useState({});
+  const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const columns = React.useMemo(() => [
     columnHelper.display({
@@ -167,9 +173,12 @@ export const IndicatorTable = ({ data, isLoading }: IndicatorTableProps) => {
     columns,
     state: {
       rowSelection,
+      sorting,
     },
     onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     enableRowSelection: true,
   });
 
@@ -190,20 +199,36 @@ export const IndicatorTable = ({ data, isLoading }: IndicatorTableProps) => {
     <div className="flex-1 bg-bg-surface border border-border-subtle rounded-lg shadow-sm overflow-hidden flex flex-col">
       <div className="flex-1 overflow-auto custom-scrollbar">
         <table className="w-full border-collapse">
-          <thead className="sticky top-0 bg-bg-card z-10">
+          <thead className="sticky top-0 bg-bg-card z-10 shadow-sm">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id} className="border-b border-border-default">
                 {headerGroup.headers.map((header) => (
                   <th
                     key={header.id}
-                    className="px-4 py-3 text-left text-[11px] font-bold text-text-tertiary uppercase tracking-wider"
+                    className={cn(
+                      "px-4 py-3 text-left text-[11px] font-bold text-text-tertiary uppercase tracking-wider group",
+                      header.column.getCanSort() && "cursor-pointer select-none hover:bg-bg-elevated/20 transition-colors"
+                    )}
+                    onClick={header.column.getToggleSortingHandler()}
                   >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext()
-                        )}
+                    <div className="flex items-center gap-1.5">
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                      {header.column.getCanSort() && (
+                        <div className="inline-flex items-center justify-center">
+                          {{
+                            asc: <ChevronUp className="w-3.5 h-3.5 text-augur-blue stroke-[3]" />,
+                            desc: <ChevronDown className="w-3.5 h-3.5 text-augur-blue stroke-[3]" />,
+                          }[header.column.getIsSorted() as string] ?? (
+                            <ChevronsUpDown className="w-3 h-3 text-text-tertiary opacity-20 group-hover:opacity-100 transition-opacity" />
+                          )}
+                        </div>
+                      )}
+                    </div>
                   </th>
                 ))}
               </tr>
