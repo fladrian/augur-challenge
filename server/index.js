@@ -30,10 +30,12 @@ const indicators = generateIndicators(500);
  *   }
  */
 app.get('/api/indicators', (req, res) => {
+  console.log('GET /api/indicators', req.query);
   const page = Math.max(1, parseInt(req.query.page) || 1);
   const limit = Math.min(100, Math.max(1, parseInt(req.query.limit) || 20));
   const severity = req.query.severity?.toLowerCase();
   const type = req.query.type?.toLowerCase();
+  const source = req.query.source?.toLowerCase();
   const search = req.query.search?.toLowerCase();
 
   let filtered = [...indicators];
@@ -44,6 +46,10 @@ app.get('/api/indicators', (req, res) => {
 
   if (type && ['ip', 'domain', 'hash', 'url'].includes(type)) {
     filtered = filtered.filter((i) => i.type === type);
+  }
+
+  if (source && source !== 'all') {
+    filtered = filtered.filter((i) => i.source.toLowerCase().trim() === source.toLowerCase().trim());
   }
 
   if (search) {

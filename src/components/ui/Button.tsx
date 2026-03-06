@@ -1,16 +1,21 @@
-import { forwardRef } from 'react';
+import { 
+  forwardRef, 
+  ButtonHTMLAttributes, 
+  ForwardRefRenderFunction, 
+  ForwardedRef 
+} from 'react';
 import { cn } from '../../utils/cn';
 
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger';
   size?: 'sm' | 'md' | 'icon';
   className?: string;
 }
 
-const ButtonRender: React.ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
+const ButtonRender: ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
   { className, variant = 'primary', size = 'md', ...props }: ButtonProps,
-  ref: React.ForwardedRef<HTMLButtonElement>
+  ref: ForwardedRef<HTMLButtonElement>
 ) => {
   const variants: Record<string, string> = {
     primary: 'bg-augur-blue text-white border-augur-blue hover:bg-augur-blue/90 hover:brightness-110 shadow-[0_4px_20px_rgba(99,131,255,0.25)] hover:shadow-[0_6px_25px_rgba(99,131,255,0.35)]',

@@ -1,11 +1,11 @@
-import * as React from 'react';
+import { ReactNode } from 'react';
 import { cn } from '../../utils/cn';
 
 
 type TagVariant = 'red' | 'blue' | 'purple' | 'teal' | 'gray';
 
 interface TagProps {
-  children: React.ReactNode;
+  children: ReactNode;
   variant?: TagVariant;
   className?: string;
 }

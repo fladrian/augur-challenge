@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { useMemo } from "react"
 
 import { Label, Pie, PieChart } from "recharts"
 
@@ -23,7 +23,7 @@ interface SeverityChartProps {
 }
 
 export function SeverityChart({ stats }: SeverityChartProps) {
-  const chartData = React.useMemo(() => [
+  const chartData = useMemo(() => [
     { severity: "critical", count: stats.critical, fill: "var(--severity-critical)" },
     { severity: "high", count: stats.high, fill: "var(--severity-high)" },
     { severity: "medium", count: stats.medium, fill: "var(--severity-medium)" },
@@ -72,7 +72,7 @@ export function SeverityChart({ stats }: SeverityChartProps) {
               stroke="var(--bg-card)"
             >
               <Label
-                content={({ viewBox }) => {
+                content={({ viewBox }: { viewBox?: any }) => {
                   if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                     return (
                       <text

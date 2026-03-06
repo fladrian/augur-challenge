@@ -1,3 +1,9 @@
+import { useState } from 'react';
+import { 
+  Shield, 
+  LayoutGrid, 
+  PieChart as PieChartIcon 
+} from 'lucide-react';
 import {
   Sidebar,
   PageHeader,
@@ -6,18 +12,16 @@ import {
   Pagination,
   DetailPanel,
   SeverityChart,
-} from '../components';
-import { StatCard } from '../components/ui';
-import { useIndicators, useIndicatorStats } from '../hooks/useIndicators';
-import { Shield, LayoutGrid, PieChart as PieChartIcon } from 'lucide-react';
-import { useState } from 'react';
-import { Tabs } from '../components/ui';
+  StatCardsGroup,
+} from '@/components';
+import { StatCard, Tabs } from '@/components/ui';
+import { useIndicators, useIndicatorStats } from '@/hooks';
 
 
 
 const DashboardPage = () => {
   const [activeTab, setActiveTab] = useState('chart');
-  const { data: indicatorsRes, isLoading: tableLoading } = useIndicators();
+  const { data: indicatorsRes, isLoading: tableLoading, isError: tableError } = useIndicators();
   const { data: stats } = useIndicatorStats();
 
   const tabs = [
@@ -73,36 +77,7 @@ const DashboardPage = () => {
                     )}
                   </div>
                 ) : (
-                  <div className="grid grid-cols-4 gap-4 w-full h-full animate-in fade-in slide-in-from-bottom-2 duration-300 items-center">
-                    <StatCard
-                      label="Critical"
-                      value={stats?.critical || 0}
-                      subValue="Requires action"
-                      variant="critical"
-                      className="h-full flex flex-col justify-center"
-                    />
-                    <StatCard
-                      label="High"
-                      value={stats?.high || 0}
-                      subValue="Active monitoring"
-                      variant="high"
-                      className="h-full flex flex-col justify-center"
-                    />
-                    <StatCard
-                      label="Medium"
-                      value={stats?.medium || 0}
-                      subValue="Under review"
-                      variant="medium"
-                      className="h-full flex flex-col justify-center"
-                    />
-                    <StatCard
-                      label="Low"
-                      value={stats?.low || 0}
-                      subValue="Informational"
-                      variant="low"
-                      className="h-full flex flex-col justify-center"
-                    />
-                  </div>
+                  <StatCardsGroup stats={stats} variant="grid-4" />
                 )}
               </div>
             </div>
@@ -114,6 +89,7 @@ const DashboardPage = () => {
             <IndicatorTable 
               data={indicatorsRes?.data || []} 
               isLoading={tableLoading} 
+              isError={tableError}
             />
             <Pagination 
               totalItems={indicatorsRes?.total || 0} 

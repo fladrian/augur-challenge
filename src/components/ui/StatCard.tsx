@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { ElementType } from 'react';
 
 import { cn } from '../../utils/cn';
 
@@ -7,7 +7,7 @@ interface StatCardProps {
   label: string;
   value: string | number;
   subValue?: string;
-  icon?: React.ElementType;
+  icon?: ElementType;
   variant?: 'total' | 'critical' | 'high' | 'medium' | 'low';
   className?: string;
 }
