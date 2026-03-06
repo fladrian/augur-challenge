@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { 
   Shield,
 } from 'lucide-react';
@@ -9,8 +8,6 @@ import {
   IndicatorTable,
   Pagination,
   DetailPanel,
-  SeverityChart,
-  StatCardsGroup,
   ThreatOverview,
 } from '@/components';
 import { StatCard } from '@/components/ui';
