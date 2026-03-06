@@ -1,20 +1,20 @@
 import { ComponentType } from 'react';
 import { cn } from '../../utils/cn';
 
-interface Tab {
-  id: string;
+interface Tab<T> {
+  id: T;
   label: string;
   icon?: ComponentType<{ className?: string }>;
 }
 
-interface TabsProps {
-  tabs: Tab[];
-  activeTab: string;
-  onChange: (id: string) => void;
+interface TabsProps<T> {
+  tabs: Tab<T>[];
+  activeTab: T;
+  onChange: (id: T) => void;
   className?: string;
 }
 
-export const Tabs = ({ tabs, activeTab, onChange, className }: TabsProps) => {
+export const Tabs = <T extends string>({ tabs, activeTab, onChange, className }: TabsProps<T>) => {
   return (
     <div className={cn("flex items-center gap-1 bg-bg-elevated/50 p-1 rounded-lg border border-border-subtle", className)}>
       {tabs.map((tab) => {
@@ -32,7 +32,7 @@ export const Tabs = ({ tabs, activeTab, onChange, className }: TabsProps) => {
                 : "text-text-tertiary hover:text-text-secondary hover:bg-bg-card/50 border border-transparent"
             )}
           >
-            {Icon && <Icon className={cn("w-3.5 h-3.5", isActive ? "text-augur-blue" : "text-text-tertiary")} />}
+            {Icon && <Icon className={cn("size-3.5 text-text-tertiary", isActive && "text-augur-blue")} />}
             {tab.label}
           </button>
         );

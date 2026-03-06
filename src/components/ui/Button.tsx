@@ -36,7 +36,7 @@ const ButtonRender: ForwardRefRenderFunction<HTMLButtonElement, ButtonProps> = (
     <button
       ref={ref}
       className={cn(
-        'inline-flex items-center gap-2 rounded-md font-semibold border transition-all duration-200 whitespace-nowrap active:scale-[0.97] hover:scale-[1.02]',
+        'inline-flex items-center gap-2 rounded-md font-semibold border transition-all duration-200 whitespace-nowrap active:scale-[0.97] hover:scale-[1.02] cursor-pointer',
         variants[variant] || variants.primary,
         sizes[size] || sizes.md,
         className
