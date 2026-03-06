@@ -7,3 +7,4 @@ export * from './Sidebar';
 export * from './ui';
 export * from './SeverityChart';
 export * from './PageHeader';
+export * from './ThreatOverview';

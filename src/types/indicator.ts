@@ -36,3 +36,17 @@ export interface IndicatorFilters {
   page?: number;
   limit?: number;
 }
+
+export interface IndicatorStats {
+  total: number;
+  critical: number;
+  high: number;
+  medium: number;
+  low: number;
+  byType: {
+    ip: number;
+    domain: number;
+    hash: number;
+    url: number;
+  };
+}

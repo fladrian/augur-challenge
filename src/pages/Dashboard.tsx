@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { 
-  Shield, 
-  LayoutGrid, 
-  PieChart as PieChartIcon 
+  Shield,
 } from 'lucide-react';
 import {
   Sidebar,
@@ -13,21 +11,16 @@ import {
   DetailPanel,
   SeverityChart,
   StatCardsGroup,
+  ThreatOverview,
 } from '@/components';
-import { StatCard, Tabs } from '@/components/ui';
+import { StatCard } from '@/components/ui';
 import { useIndicators, useIndicatorStats } from '@/hooks';
 
 
 
 const DashboardPage = () => {
-  const [activeTab, setActiveTab] = useState('chart');
   const { data: indicatorsRes, isLoading: tableLoading, isError: tableError } = useIndicators();
   const { data: stats } = useIndicatorStats();
-
-  const tabs = [
-    { id: 'chart', label: 'Distribution', icon: PieChartIcon },
-    { id: 'cards', label: 'Severity Cards', icon: LayoutGrid },
-  ];
 
   return (
     <div className="flex h-screen overflow-hidden bg-bg-root">
@@ -50,37 +43,7 @@ const DashboardPage = () => {
             </div>
 
             {/* Consolidated Stats Detail - 9 columns */}
-            <div className="col-span-9 bg-bg-card border border-border-subtle rounded-lg p-6 flex flex-col h-[300px] shadow-sm overflow-hidden">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex flex-col gap-1">
-                  <span className="text-[10.5px] font-semibold uppercase tracking-[1px] text-text-tertiary">
-                    Threat Overview
-                  </span>
-                  <h3 className="text-sm font-bold text-text-primary">
-                    {activeTab === 'chart' ? 'Security Distribution' : 'Severity Breakdown'}
-                  </h3>
-                </div>
-                <Tabs 
-                  tabs={tabs} 
-                  activeTab={activeTab} 
-                  onChange={setActiveTab} 
-                />
-              </div>
-
-              <div className="flex-1 min-h-0 flex items-center justify-center">
-                {activeTab === 'chart' ? (
-                  <div className="w-full h-full animate-in fade-in zoom-in-95 duration-300">
-                    {stats ? (
-                      <SeverityChart stats={stats} />
-                    ) : (
-                      <div className="h-full w-full bg-bg-elevated animate-pulse rounded-full aspect-square max-h-[140px] mx-auto" />
-                    )}
-                  </div>
-                ) : (
-                  <StatCardsGroup stats={stats} variant="grid-4" />
-                )}
-              </div>
-            </div>
+            <ThreatOverview stats={stats} />
           </div>
 
           <FilterToolbar />
