@@ -8,29 +8,21 @@ const PORT = 3001;
 app.use(cors());
 app.use(express.json());
 
-// Generate a fixed dataset on startup so results are consistent
+// Simple logging middleware for production debugging
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
+  next();
+});
+
+// Generate a fixed dataset on startup (seeded in data.js)
 const indicators = generateIndicators(500);
 
+const router = express.Router();
+
 /**
- * GET /api/indicators
- *
- * Query parameters:
- *   - page     (number, default: 1)
- *   - limit    (number, default: 20, max: 100)
- *   - severity (string, one of: critical, high, medium, low)
- *   - type     (string, one of: ip, domain, hash, url)
- *   - search   (string, partial match on indicator value)
- *
- * Response:
- *   {
- *     data: Indicator[],
- *     total: number,
- *     page: number,
- *     totalPages: number
- *   }
+ * GET /indicators
  */
-app.get('/api/indicators', (req, res) => {
-  console.log('GET /api/indicators', req.query);
+router.get('/indicators', (req, res) => {
   const page = Math.max(1, parseInt(req.query.page) || 1);
   const limit = Math.min(100, Math.max(1, parseInt(req.query.limit) || 20));
   const severity = req.query.severity?.toLowerCase();
@@ -74,14 +66,12 @@ app.get('/api/indicators', (req, res) => {
 });
 
 /**
- * GET /api/indicators/:id
- *
- * Returns a single indicator by ID.
+ * GET /indicators/:id
  */
-app.get('/api/indicators/:id', (req, res) => {
+router.get('/indicators/:id', (req, res) => {
   const indicator = indicators.find((i) => i.id === req.params.id);
   if (!indicator) {
-    return res.status(404).json({ error: 'Indicator not found' });
+    return res.status(404).json({ error: 'Indicator not found', id: req.params.id });
   }
   const delay = 100 + Math.random() * 200;
   setTimeout(() => {
@@ -90,11 +80,9 @@ app.get('/api/indicators/:id', (req, res) => {
 });
 
 /**
- * GET /api/stats
- *
- * Returns summary statistics for the dashboard header.
+ * GET /stats
  */
-app.get('/api/stats', (_req, res) => {
+router.get('/stats', (_req, res) => {
   const stats = {
     total: indicators.length,
     critical: indicators.filter((i) => i.severity === 'critical').length,
@@ -109,6 +97,21 @@ app.get('/api/stats', (_req, res) => {
     },
   };
   res.json(stats);
+});
+
+// Mount router on both /api and / to handle different Netlify path configurations
+app.use('/api', router);
+app.use('/', router);
+
+// Catch-all for debugging 404s
+app.use((req, res) => {
+  console.warn(`404 NOT FOUND: ${req.method} ${req.url}`);
+  res.status(404).json({
+    error: 'Fallback 404',
+    requestedPath: req.url,
+    method: req.method,
+    help: 'Try /api/stats or /stats'
+  });
 });
 
 // For local development
