@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { 
   Sidebar, 
   PageHeader, 
@@ -9,10 +8,9 @@ import {
   DetailPanel 
 } from '@/components';
 import { useIndicators, useIndicatorStats } from '@/hooks';
-import { Shield } from 'lucide-react';
 
 const DashboardPage = () => {
-  const { data: indicatorsRes, isLoading: tableLoading } = useIndicators();
+  const { data: indicatorsRes, isLoading: tableLoading, isError } = useIndicators();
   const { data: stats } = useIndicatorStats();
 
   return (
@@ -32,6 +30,7 @@ const DashboardPage = () => {
           <IndicatorTable 
             data={indicatorsRes?.data ?? []} 
             isLoading={tableLoading} 
+            isError={isError}
           />
           <Pagination 
             totalItems={indicatorsRes?.total || 0} 

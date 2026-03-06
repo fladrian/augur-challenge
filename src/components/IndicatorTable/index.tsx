@@ -21,9 +21,10 @@ import { useIndicatorColumns } from './columns';
 interface IndicatorTableProps {
   data: Indicator[];
   isLoading?: boolean;
+  isError?: boolean;
 }
 
-export const IndicatorTable = ({ data, isLoading }: IndicatorTableProps) => {
+export const IndicatorTable = ({ data, isLoading, isError }: IndicatorTableProps) => {
   const { setSelectedIndicatorId, selectedIndicatorId } = useDashboardStore();
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -43,6 +44,20 @@ export const IndicatorTable = ({ data, isLoading }: IndicatorTableProps) => {
     getSortedRowModel: getSortedRowModel(),
     enableRowSelection: true,
   });
+
+  if (isError) {
+    return (
+      <div className="flex-1 bg-bg-surface border border-border-subtle rounded-lg shadow-sm overflow-hidden flex flex-col items-center justify-center p-8 text-center bg-red-50/50">
+        <p className="text-red-600 font-medium mb-2">Failed to load indicators</p>
+        <button 
+          onClick={() => window.location.reload()}
+          className="text-sm px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors"
+        >
+          Retry Connection
+        </button>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
