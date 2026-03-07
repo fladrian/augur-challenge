@@ -48,8 +48,8 @@ export const Sidebar = () => {
   return (
     <aside className="w-[220px] bg-bg-sidebar border-r border-border-subtle flex flex-col h-screen sticky top-0 overflow-y-auto pt-5 pb-5">
       <div className="px-5 mb-6 flex items-center gap-3">
-        <div className="w-7 h-7 flex items-center justify-center border-2 border-white rotate-45 shrink-0">
-          <div className="w-4 h-4 bg-augur-blue/30 -rotate-45" />
+       <div className="size-5 flex items-center justify-center">
+          <svg viewBox="0 0 28 28" fill="none"><path d="M14 2L2 26h24L14 2z" stroke="#fff" stroke-width="2" fill="none"/><path d="M14 10l-5 10h10l-5-10z" fill="#6383ff" opacity="0.3"/></svg>
         </div>
         <span className="font-bold text-[18px] tracking-[3px] uppercase text-white font-display">
           Augur
