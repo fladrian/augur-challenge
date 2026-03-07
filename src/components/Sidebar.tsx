@@ -59,7 +59,7 @@ export const Sidebar = () => {
 
       <nav className="flex-1">
         <div className="mb-2">
-          <NavItem icon={LayoutDashboard} label="Dashboard" active badge={3} />
+          <NavItem icon={LayoutDashboard} label="Dashboard" active />
           <NavItem icon={Activity} label="Augur Events" />
           <NavItem icon={Search} label="Investigate" />
         </div>
